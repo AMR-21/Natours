@@ -73,7 +73,7 @@ exports.deleteBooking = factory.deleteOne(Booking);
 exports.webhookCheckout = (req, res, next) => {
   let event;
   try {
-    const signature = req.headers.get('stripe-signature');
+    const signature = req.headers['stripe-signature'];
 
     event = stripe.webhooks.constructEvent(
       req.body,

@@ -9,7 +9,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-// const cors = require('cors');
+const cors = require('cors');
 
 // own
 const AppError = require('./utils/appError');
@@ -24,8 +24,6 @@ const app = express();
 
 app.enable('trust proxy');
 
-// app.use(cors());
-
 // set the template engine in express
 // templates are called views in pug
 app.set('view engine', 'pug');
@@ -33,6 +31,23 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // Global Middleware
+// implement CORS
+app.use(cors());
+// Access-Control-Allow-Origin *
+
+// in case wants not to share the api and select some only
+// api.natours.com , natours.com
+// app.use(
+//   cors({
+//     origin: 'https://www.natours.com',
+//   })
+// );
+
+// preflight phase
+// to handle complex requests delete/patch/put
+app.options('*', cors());
+// '*' can be 'api/v1/tours/:id'
+
 // serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 

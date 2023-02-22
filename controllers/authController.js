@@ -14,22 +14,31 @@ const signToken = (id) => {
   });
 };
 
-const sendToken = (user, statusCode, res) => {
+const sendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
-  const cookieOptions = {
+  // const cookieOptions = {
+  //   // 90 days from now in ms
+  //   expires: new Date(
+  //     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+  //   ),
+  //   httpOnly: true,
+  //   secure: req.secure || req.headers('x-forwarded-proto') === 'https',
+  // };
+
+  // sent only with https
+  // if (req.secure || req.headers('x-forwarded-proto') === 'https')
+  //   cookieOptions.secure = true;
+
+  // name is unique identifier for cookie
+  // if cookie is sent with same name it is overwritten
+  res.cookie('jwt', token, {
     // 90 days from now in ms
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-  };
-
-  // sent only with https
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-
-  // name is unique identifier for cookie
-  // if cookie is sent with same name it is overwritten
-  res.cookie('jwt', token, cookieOptions);
+    secure: req.secure || req.headers('x-forwarded-proto') === 'https',
+  });
 
   // remove passwords from output
   user.password = undefined;
@@ -54,7 +63,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const url = `${req.protocol}://${req.get('host')}/me`;
   await new Email(newUser, url).sendWelcome();
 
-  sendToken(newUser, 201, res);
+  sendToken(newUser, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -72,7 +81,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password', 401));
 
   // 3) if all is correct, send jwt
-  sendToken(user, 200, res);
+  sendToken(user, 200, req, res);
 });
 
 exports.logout = (req, res, next) => {
@@ -228,7 +237,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // define as document middleware on model
 
   // 4) log user in, send JWT
-  sendToken(user, 200, res);
+  sendToken(user, 200, req, res);
 });
 
 // TODO new not similar as old
@@ -246,5 +255,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   // 4) log user in, send JWT
-  sendToken(user, 200, res);
+  sendToken(user, 200, req, res);
 });

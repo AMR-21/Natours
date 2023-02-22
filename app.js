@@ -22,6 +22,8 @@ const bookingRouter = require('./routes/bookingRoutes');
 
 const app = express();
 
+app.enable('trust proxy');
+
 // app.use(cors());
 
 // set the template engine in express

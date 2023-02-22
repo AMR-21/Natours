@@ -7,14 +7,15 @@ const Review = require('../../models/reviewModel');
 
 dotenv.config({ path: '../../config.env' });
 
-mongoose
-  .connect(`${process.env.DB.replace('<PASSWORD>', process.env.DB_PASSWORD)}`, {
+mongoose.connect(
+  `${process.env.DB.replace('<PASSWORD>', process.env.DB_PASSWORD)}`,
+  {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connection established'));
+  }
+);
 
 // READ JSON FILE
 
@@ -29,10 +30,10 @@ const importData = async () => {
     await Tour.create(tours);
     await User.create(users);
     await Review.create(reviews);
-    console.log('Success');
+    // console.log('Success');
     process.exit();
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 
@@ -42,10 +43,10 @@ const deleteAll = async () => {
     await Tour.deleteMany();
     await User.deleteMany();
     await Review.deleteMany();
-    console.log('Success');
+    // console.log('Success');
     process.exit();
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 

@@ -4,6 +4,9 @@ import { login, logout } from './login';
 import { updateData } from './updateSetting';
 import { bookTour } from './stripe';
 
+// import 'core-js/stable'; // polyfill everything
+// import 'regenerator-runtime/runtime'; // polyfill async/await
+
 // DOM ELEMENTS
 const map = document.getElementById('map');
 const form = document.querySelector('.form--login');

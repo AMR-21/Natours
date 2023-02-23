@@ -99,10 +99,16 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   const tours = await Tour.find({_id :{$in:tourIDs} })
    */
 
-  res.status(200).render('overview', {
-    title: 'My Tours',
-    tours,
-  });
+  res
+    .status(200)
+    .set(
+      'Content-Security-Policy',
+      "connect-src 'self' https://cdnjs.cloudflare.com"
+    )
+    .render('overview', {
+      title: 'My Tours',
+      tours,
+    });
 });
 
 exports.alerts = (req, res, next) => {

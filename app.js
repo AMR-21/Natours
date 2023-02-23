@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
@@ -68,7 +69,11 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // route put here because it is needed in raw format before being parsed by express.json
-app.post('/webhook-checkout', express.raw(), webhookCheckout);
+app.post(
+  '/webhook-checkout',
+  bodyParser.raw({ type: 'application/json' }),
+  webhookCheckout
+);
 
 // body-parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));

@@ -104,3 +104,13 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
     tours,
   });
 });
+
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+
+  if (alert === 'booking')
+    req.locals.alert =
+      'Booking was completed successfully, if it does not appear come back in a moment';
+
+  next();
+};

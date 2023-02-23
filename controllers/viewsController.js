@@ -20,8 +20,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     .status(200)
     .set(
       'Content-Security-Policy',
-      "connect-src 'self' https://cdnjs.cloudflare.com",
-      "connect-src 'self' https://js.stripe.com/v3/'"
+      "connect-src 'self' https://cdnjs.cloudflare.com"
     )
     .render('overview', {
       title: 'All Tours',

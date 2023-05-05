@@ -1,6 +1,5 @@
 import '@babel/polyfill';
 import { displayMap } from './leaflet';
-import { login, logout,signup,forgot,reset} from './login';
 import { updateData } from './updateSetting';
 import { bookTour } from './stripe';
 import { showAlert } from './alert';

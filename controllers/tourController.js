@@ -177,7 +177,16 @@ exports.getDistances = catchAsync(async (req, res, next) => {
   const [lat, lng] = latlng.split(',');
 
   const multiplier = unit === 'mi' ? 0.000621371 : 0.001;
+  //res.render('tourSearch');
+  //exports.getTourSearch = (req, res) => {
+  //res.render('tourSearch');
+  //};
 
+  // exports.postTourSearch = (req, res) => {
+  // const { location, radius } = req.body;
+  // do something with the user's data
+  //res.send(`Searching for tours near ${location} within ${radius} km...`);
+  //};
   if (!lat || !lng)
     return next(
       new AppError(

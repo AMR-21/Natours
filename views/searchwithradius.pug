@@ -1,0 +1,10 @@
+title Tour Search
+h1 Tour Search
+form(method='POST' , action='/search')
+  label(for='location') Location
+  input(#location type='text' , name='location')
+  br
+  label(for='radius') Radius
+  input(#radius type='number' , name='radius')
+  br
+  button(type='submit') Search

@@ -214,10 +214,11 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) get user based on token
-  const token = crypto
-    .createHash('sha256')
-    .update(req.params.token)
-    .digest('hex');
+  const { token } = req.params;
+  // crypto
+  //   .createHash('sha256')
+  //   .update(req.params.token)
+  //   .digest('hex');
 
   const user = await User.findOne({
     passwordResetToken: token,

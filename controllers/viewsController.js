@@ -133,7 +133,6 @@ exports.getSignedUp = (req, res,next) => {
     .render('signup', {
       title: `Your account`,
     });
-    next();
 };
 exports.review = (req, res) => {
   // 1) build the template

@@ -1,3 +1,32 @@
 extends base
 block content
-    h1 Mazen
+    h1 Reviews
+    label(for='tour') Select a tour:
+    select#tour
+        option(value='tour1') Tour 1
+        option(value='tour2') Tour 2
+        option(value='tour3') Tour 3
+    br
+    br
+    label(for='review') Write a review:
+    textarea#review(rows='4' cols='50')
+    br
+    br
+    button(onclick='submitReview()') Submit
+    #reviewsContainer
+form
+  label(for='review') Enter Review:
+  br
+  input#review(type='text')
+  br
+  br
+  label(for='rating') Enter Rating:
+  br
+  select#tour
+    option(value='1') 1
+    option(value='2') 2
+    option(value='3') 3
+    option(value='4') 4
+    option(value='5') 5
+  input(type='submit' value='Submit')
+    

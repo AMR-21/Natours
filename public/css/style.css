@@ -1324,3 +1324,18 @@ body {
   transform: translateY(-2px);
 }
 
+.btn--link {
+  box-sizing: border-box;
+  color: #444;
+  /* border: 1px solid #444 !important; */
+}
+
+.ml-sm {
+  margin-left: 2rem;
+}
+
+.btn--link:focus,
+.btn--link:active {
+  outline: none;
+  background-color: transparent !important;
+}

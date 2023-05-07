@@ -184,6 +184,6 @@ exports.getReset = catchAsync(async (req, res, next) => {
       "connect-src 'self' https://cdnjs.cloudflare.com"
     )
     .render('reset', {
-      title: `AAAA`,
+      title: `Update your password`,
     });
 });

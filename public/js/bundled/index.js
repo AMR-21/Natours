@@ -7379,7 +7379,7 @@ const forgot = async (email)=>{
 const reset = async (password, passwordConfirm, token)=>{
     try {
         const res = await (0, _axiosDefault.default)({
-            method: "POST",
+            method: "PATCH",
             url: `/api/v1/users/resetPassword/${token}`,
             data: {
                 password,

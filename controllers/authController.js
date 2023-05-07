@@ -1,7 +1,6 @@
 const { promisify } = require('util');
-const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-
+const crypto = require('crypto');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -190,7 +189,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   try {
     // prettier-ignore
-    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+    const resetURL = `${req.protocol}://${req.get('host')}/reset/${resetToken}`;
     await new Email(user, resetURL).sendPasswordReset();
   } catch (err) {
     user.passwordResetToken = undefined;
@@ -214,11 +213,10 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) get user based on token
-  const { token } = req.params;
-  // crypto
-  //   .createHash('sha256')
-  //   .update(req.params.token)
-  //   .digest('hex');
+  const token = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
 
   const user = await User.findOne({
     passwordResetToken: token,

@@ -87,7 +87,7 @@ export const forgot = async (email) => {
 export const reset = async (password, passwordConfirm, token) => {
   try {
     const res = await axios({
-      method: 'POST',
+      method: 'PATCH',
       url: `/api/v1/users/resetPassword/${token}`,
       data: {
         password,

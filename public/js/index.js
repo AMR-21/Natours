@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import { displayMap } from './leaflet';
 import { login, logout, signup, forgot, reset } from './login';
 import { updateData } from './updateSetting';
-import { bookTour } from './stripe';
+import { bookTour } from './paymob';
 import { showAlert } from './alert';
 import { addReview } from './review';
 
@@ -95,6 +95,7 @@ if (bookBtn)
     const { tourId } = e.target.dataset;
     bookTour(tourId);
   });
+
 if (formReview)
   formReview.addEventListener('submit', (e) => {
     e.preventDefault();

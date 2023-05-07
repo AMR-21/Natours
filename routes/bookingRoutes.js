@@ -2,7 +2,7 @@ const express = require('express');
 const { protect, restrictTo } = require('../controllers/authController');
 
 const {
-  getCheckoutSession,
+  getCheckoutUrl,
   getBookings,
   getBooking,
   updateBooking,
@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.use(protect);
 
-router.get('/checkout-session/:tourId', getCheckoutSession);
+router.get('/paymob/:tourId', getCheckoutUrl);
 
 router.use(restrictTo(['admin', 'lead-guide']));
 

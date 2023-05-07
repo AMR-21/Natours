@@ -232,7 +232,7 @@ if (formReview) formReview.addEventListener("submit", (e)=>{
 const alertMessage = document.querySelector("body").dataset.alert;
 if (alertMessage) (0, _alert.showAlert)("success", alertMessage, 20);
 
-},{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./stripe":"10tSC","./alert":"kxdiQ","./review":"9Gbth"}],"dTCHC":[function(require,module,exports) {
+},{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./alert":"kxdiQ","./review":"9Gbth","./stripe":"10tSC"}],"dTCHC":[function(require,module,exports) {
 "use strict";
 require("f7b257bdf3f995c0");
 var _global = _interopRequireDefault(require("7f0b1332339d4ac2"));
@@ -11551,30 +11551,6 @@ const updateData = async (data, type)=>{
     }
 };
 
-},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"10tSC":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "bookTour", ()=>bookTour);
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _alert = require("./alert");
-const stripe = Stripe("pk_test_51Me5DpGo5ykfujlCXT83asPLszD4NT2iLuPmRHxRosmlQ1yQoCNrI6UkQaUvD83z48bSZ96LrPNUde15XJbrD1ky006NLM98Dz");
-const bookTour = async (tourId)=>{
-    try {
-        // 1) get checkout session from the API
-        const session = await (0, _axiosDefault.default)(`/api/v1/bookings/checkout-session/${tourId}`);
-        // console.log(session);
-        // 2) create checkout form + charge credit card
-        // await stripe.redirectToCheckout({
-        //   sessionId: session.data.session.id,
-        // });
-        window.location.replace(session.data.session.url);
-    } catch (err) {
-        console.error(err);
-        (0, _alert.showAlert)("error", err);
-    }
-};
-
 },{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Gbth":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -11602,6 +11578,30 @@ const addReview = async (tour, user, review, rating)=>{
         }
     } catch (err) {
         (0, _alert.showAlert)("error", "You can't add more than one review for the same tour");
+    }
+};
+
+},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"10tSC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "bookTour", ()=>bookTour);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alert = require("./alert");
+const stripe = Stripe("pk_test_51Me5DpGo5ykfujlCXT83asPLszD4NT2iLuPmRHxRosmlQ1yQoCNrI6UkQaUvD83z48bSZ96LrPNUde15XJbrD1ky006NLM98Dz");
+const bookTour = async (tourId)=>{
+    try {
+        // 1) get checkout session from the API
+        const session = await (0, _axiosDefault.default)(`/api/v1/bookings/checkout-session/${tourId}`);
+        // console.log(session);
+        // 2) create checkout form + charge credit card
+        // await stripe.redirectToCheckout({
+        //   sessionId: session.data.session.id,
+        // });
+        window.location.replace(session.data.session.url);
+    } catch (err) {
+        console.error(err);
+        (0, _alert.showAlert)("error", err);
     }
 };
 

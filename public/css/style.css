@@ -1339,3 +1339,13 @@ body {
   outline: none;
   background-color: transparent !important;
 }
+
+.form--review {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+}
+.mt-md {
+  margin-top: 17rem;
+}

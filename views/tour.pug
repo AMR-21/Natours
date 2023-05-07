@@ -95,25 +95,26 @@ block content
         if user
           button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!        
         else
-          a.btn.btn--green.span-all-rows(href='/login') Log in to book the tour       
-  form.form.form--review
-    label.overview-box__label Enter Review:
-    br
-    textarea#review(cols="50", rows="5") 
-    br
-    //input#review(type='text')
-    br
-    br
-    label.overview-box__label Enter Rating:
-    br
-    select#rating
-      option(value=1) 1
-      option(value=2) 2
-      option(value=3) 3
-      option(value=4) 4
-      option(value=5) 5
-    br
-    br
-    .form__group
-      button.btn.btn--green Submit
+          a.btn.btn--green.span-all-rows(href='/login') Log in to book the tour    
+
+    form.form.form--review.mt-md
+      label.overview-box__label Enter Review:
+      br
+      textarea#review(cols="50", rows="5") 
+      br
+      //input#review(type='text')
+      br
+      br
+      label.overview-box__label Enter Rating:
+      br
+      select#rating
+        option(value=1) 1
+        option(value=2) 2
+        option(value=3) 3
+        option(value=4) 4
+        option(value=5) 5
+      br
+      br
+      .form__group
+        button.btn.btn--green.ml-sm Submit
 

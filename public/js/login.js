@@ -32,13 +32,13 @@ export const logout = async () => {
 
     if (res.data.status === 'success') {
       // true force to reload from server not from browser cache
-      location.reload(true);
+      location.assign('/');
     }
   } catch (err) {
     showAlert('error', 'Error logging out, Try again.');
   }
 };
-export const signup = async(name,email,password,passwordConfirm) => {
+export const signup = async (name, email, password, passwordConfirm) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -60,7 +60,7 @@ export const signup = async(name,email,password,passwordConfirm) => {
   } catch (err) {
     showAlert('error', err.response.data.message);
   }
-}
+};
 
 export const forgot = async (email) => {
   try {

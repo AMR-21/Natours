@@ -7,7 +7,7 @@ const {
   getMyTours,
   alerts,
   getSignedUp,
-   getForgot,
+  getForgot,
   getReset,
   review,
 } = require('../controllers/viewsController');
@@ -20,10 +20,10 @@ const router = express.Router();
 router.use(alerts);
 
 router.get('/', isLoggedIn, getOverview);
-router.get('/signup',getSignedUp);
+router.get('/signup', getSignedUp);
 router.get('/forgot', getForgot);
 router.get('/reset/:token', getReset);
-router.get('/review',review);
+router.get('/review', review);
 router.get('/login', isLoggedIn, getLogin);
 router.get('/tour/:slug', isLoggedIn, getTour);
 router.get('/me', protect, getMe);

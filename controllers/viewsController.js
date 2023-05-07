@@ -120,7 +120,7 @@ exports.alerts = (req, res, next) => {
 
   next();
 };
-exports.getSignedUp = (req, res,next) => {
+exports.getSignedUp = (req, res, next) => {
   // 1) build the template
 
   // 2) Render that template using data from 1
@@ -133,7 +133,7 @@ exports.getSignedUp = (req, res,next) => {
     .render('signup', {
       title: `Your account`,
     });
-    next();
+  next();
 };
 exports.review = (req, res) => {
   // 1) build the template

@@ -4,10 +4,12 @@ import { login, logout, signup, forgot, reset } from './login';
 import { updateData } from './updateSetting';
 import { bookTour } from './stripe';
 import { showAlert } from './alert';
+import { addReview } from './review';
 
 // DOM ELEMENTS
 const map = document.getElementById('map');
 const form = document.querySelector('.form--login');
+const formReview = document.querySelector('.form--review');
 const signupForm = document.querySelector('.form--signup');
 const formUpdate = document.querySelector('.form-user-data');
 const formForgot = document.querySelector('.form--forgot');
@@ -93,7 +95,16 @@ if (bookBtn)
     const { tourId } = e.target.dataset;
     bookTour(tourId);
   });
-
+if (formReview)
+  formReview.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = document.querySelector('.data');
+    const tour = data.dataset.tour;
+    const user = data.dataset.user;
+    const review = document.querySelector('#review').value;
+    const rating = document.querySelector('#rating').value;
+    addReview(tour, user, review, rating);
+  });
 const alertMessage = document.querySelector('body').dataset.alert;
 
 if (alertMessage) showAlert('success', alertMessage, 20);

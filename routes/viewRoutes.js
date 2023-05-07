@@ -13,7 +13,7 @@ const {
 } = require('../controllers/viewsController');
 
 const { isLoggedIn, protect } = require('../controllers/authController');
-// const { createBookingCheckout } = require('../controllers/bookingController');
+const { createBookingCheckout } = require('../controllers/bookingController');
 
 const router = express.Router();
 
@@ -28,5 +28,6 @@ router.get('/login', isLoggedIn, getLogin);
 router.get('/tour/:slug', isLoggedIn, getTour);
 router.get('/me', protect, getMe);
 router.get('/my-tours', protect, getMyTours);
+router.post('/pay', createBookingCheckout);
 
 module.exports = router;

@@ -37,6 +37,7 @@ exports.getCheckoutUrl = catchAsync(async (req, res, next) => {
       items: [
         {
           name: tour.name,
+          id: tour.id,
           amount_cents: tour.price * 100,
           description:
             'Exploring the jaw-dropping US east coast by foot and by boat',
@@ -58,6 +59,7 @@ exports.getCheckoutUrl = catchAsync(async (req, res, next) => {
       expiration: 3600,
       order_id: orderId,
       billing_data: {
+        id: req.user.id,
         apartment: 'NA',
         email: req.user.email,
         floor: 'NA',
@@ -99,12 +101,18 @@ exports.getCheckoutUrl = catchAsync(async (req, res, next) => {
 //   // next();
 //   res.redirect(`${req.protocol}://${req.get('host')}/`);
 // });
-const createBookingCheckout = async (session) => {
-  const tour = session.client_reference_id;
-  const user = (await User.findOne({ email: session.customer_email })).id;
-  const price = session.amount_total / 100;
+exports.createBookingCheckout = async (req, res, next) => {
+  // const tour = session.client_reference_id;
+  // const user = (await User.findOne({ email: session.customer_email })).id;
+  // const price = session.amount_total / 100;
 
-  await Booking.create({ tour, user, price });
+  // await Booking.create({ tour, user, price });
+  if (req.body.obj.success) {
+  }
+  console.log(req.body.obj.order.items);
+  console.log(req.body.obj.payment_key_claims.billing_data);
+
+  res.status(200).send('ok');
 };
 
 exports.getBookings = factory.getAll(Booking, 'bookings');

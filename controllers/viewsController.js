@@ -134,6 +134,7 @@ exports.getSignedUp = (req, res, next) => {
       title: `Your account`,
     });
 };
+
 exports.review = (req, res) => {
   // 1) build the template
 

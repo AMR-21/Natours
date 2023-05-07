@@ -38,6 +38,7 @@ export const logout = async () => {
     showAlert('error', 'Error logging out, Try again.');
   }
 };
+
 export const signup = async (name, email, password, passwordConfirm) => {
   try {
     const res = await axios({

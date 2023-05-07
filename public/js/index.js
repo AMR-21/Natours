@@ -1,6 +1,6 @@
 import '@babel/polyfill';
 import { displayMap } from './leaflet';
-import { login, logout,signup,forgot,reset} from './login';
+import { login, logout, signup, forgot, reset } from './login';
 import { updateData } from './updateSetting';
 import { bookTour } from './stripe';
 import { showAlert } from './alert';
@@ -30,7 +30,6 @@ if (form)
     login(email, password);
   });
 
-
 if (formReset)
   formReset.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -47,7 +46,7 @@ if (formForgot)
     const email = document.getElementById('email').value;
     forgot(email);
   });
-  
+
 if (signupForm)
   signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -55,7 +54,7 @@ if (signupForm)
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
-    signup(name,email, password,passwordConfirm);
+    signup(name, email, password, passwordConfirm);
   });
 
 if (formUpdate)

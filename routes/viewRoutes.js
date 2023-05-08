@@ -10,10 +10,14 @@ const {
   getForgot,
   getReset,
   review,
+  checkout,
 } = require('../controllers/viewsController');
 
-const { isLoggedIn, protect } = require('../controllers/authController');
-// const { createBookingCheckout } = require('../controllers/bookingController');
+const {
+  isLoggedIn,
+  protect,
+  verifyHMAC,
+} = require('../controllers/authController');
 
 const router = express.Router();
 
@@ -28,5 +32,6 @@ router.get('/login', isLoggedIn, getLogin);
 router.get('/tour/:slug', isLoggedIn, getTour);
 router.get('/me', protect, getMe);
 router.get('/my-tours', protect, getMyTours);
+router.get('/paymob/pay', isLoggedIn, verifyHMAC, checkout);
 
 module.exports = router;

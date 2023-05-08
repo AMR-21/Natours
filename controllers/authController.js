@@ -1,6 +1,7 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const { URL } = require('url');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -256,3 +257,56 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // 4) log user in, send JWT
   sendToken(user, 200, req, res);
 });
+
+// CCD1251AFDFCC8CF7C1FFAD476FEE3E0
+exports.verifyHMAC = (req, res, next) => {
+  const fields = JSON.parse(process.env.PAYMOB_HMAC_STRING_KEYS);
+
+  let hmacString;
+  let rcvdHMAC;
+
+  // Get pair values and form HMAC string
+  if (req.method === 'POST') {
+    const data = req.body.obj;
+    const { hmac } = req.query;
+    rcvdHMAC = hmac;
+
+    hmacString = fields
+      .map((field) => {
+        if (field.includes('.')) {
+          const [obj, key] = field.split('.');
+          return data[obj][key];
+        }
+        return data[field];
+      })
+      .join('');
+  }
+
+  if (req.method === 'GET') {
+    // eslint-disable-next-line node/no-unsupported-features/es-builtins
+    const data = Object.fromEntries(
+      new URL(`${req.protocol}://${req.get('host')}/${req.url}`).searchParams
+    );
+
+    rcvdHMAC = data.hmac;
+
+    hmacString = fields
+      .map((field) => {
+        if (field === 'order.id') return data.order;
+        return data[field];
+      })
+      .join('');
+  }
+
+  // Hash HMAC string
+  const HMAC = crypto
+    .createHmac('sha512', process.env.PAYMOB_HMAC_SECRET)
+    .update(hmacString)
+    .digest('hex');
+
+  // Verify the HMAC
+  if (HMAC !== rcvdHMAC)
+    return next(new AppError('HMAC verification failed', 401));
+
+  next();
+};

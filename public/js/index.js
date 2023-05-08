@@ -2,13 +2,14 @@ import '@babel/polyfill';
 import { displayMap } from './leaflet';
 import { login, logout, signup, forgot, reset } from './login';
 import { updateData } from './updateSetting';
-import { bookTour } from './stripe';
+import { bookTour } from './paymob';
 import { showAlert } from './alert';
 import { addReview } from './review';
 
 // DOM ELEMENTS
 const map = document.getElementById('map');
 const form = document.querySelector('.form--login');
+const success = document.querySelector('.success');
 const formReview = document.querySelector('.form--review');
 const signupForm = document.querySelector('.form--signup');
 const formUpdate = document.querySelector('.form-user-data');
@@ -22,6 +23,12 @@ const bookBtn = document.querySelector('#book-tour');
 if (map) {
   const locations = JSON.parse(map.dataset.locations);
   displayMap(locations);
+}
+
+if (success) {
+  window.setTimeout(() => {
+    location.assign('/my-tours');
+  }, 3 * 1000);
 }
 
 if (form)
@@ -92,9 +99,10 @@ if (logoutBtn) logoutBtn.addEventListener('click', logout);
 if (bookBtn)
   bookBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Processing...';
-    const { tourId } = e.target.dataset;
-    bookTour(tourId);
+    const { tourId, userId } = e.target.dataset;
+    bookTour(tourId, userId);
   });
+
 if (formReview)
   formReview.addEventListener('submit', (e) => {
     e.preventDefault();

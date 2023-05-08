@@ -147,12 +147,13 @@ var _polyfill = require("@babel/polyfill");
 var _leaflet = require("./leaflet");
 var _login = require("./login");
 var _updateSetting = require("./updateSetting");
-var _stripe = require("./stripe");
+var _paymob = require("./paymob");
 var _alert = require("./alert");
 var _review = require("./review");
 // DOM ELEMENTS
 const map = document.getElementById("map");
 const form = document.querySelector(".form--login");
+const success = document.querySelector(".success");
 const formReview = document.querySelector(".form--review");
 const signupForm = document.querySelector(".form--signup");
 const formUpdate = document.querySelector(".form-user-data");
@@ -166,6 +167,9 @@ if (map) {
     const locations = JSON.parse(map.dataset.locations);
     (0, _leaflet.displayMap)(locations);
 }
+if (success) window.setTimeout(()=>{
+    location.assign("/my-tours");
+}, 3000);
 if (form) form.addEventListener("submit", (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -217,8 +221,8 @@ if (formUpdatePassword) formUpdatePassword.addEventListener("submit", async (e)=
 if (logoutBtn) logoutBtn.addEventListener("click", (0, _login.logout));
 if (bookBtn) bookBtn.addEventListener("click", (e)=>{
     e.target.textContent = "Processing...";
-    const { tourId  } = e.target.dataset;
-    (0, _stripe.bookTour)(tourId);
+    const { tourId , userId  } = e.target.dataset;
+    (0, _paymob.bookTour)(tourId, userId);
 });
 if (formReview) formReview.addEventListener("submit", (e)=>{
     e.preventDefault();
@@ -232,7 +236,10 @@ if (formReview) formReview.addEventListener("submit", (e)=>{
 const alertMessage = document.querySelector("body").dataset.alert;
 if (alertMessage) (0, _alert.showAlert)("success", alertMessage, 20);
 
+},{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./paymob":"lyZvH","./alert":"kxdiQ","./review":"9Gbth"}],"dTCHC":[function(require,module,exports) {
+
 },{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./alert":"kxdiQ","./review":"9Gbth","./stripe":"10tSC"}],"dTCHC":[function(require,module,exports) {
+
 "use strict";
 require("f7b257bdf3f995c0");
 var _global = _interopRequireDefault(require("7f0b1332339d4ac2"));
@@ -11550,6 +11557,7 @@ const updateData = async (data, type)=>{
         (0, _alert.showAlert)("error", err.response.data.message);
     }
 };
+
 
 },{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Gbth":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

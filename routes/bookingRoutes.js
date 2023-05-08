@@ -1,5 +1,9 @@
 const express = require('express');
-const { protect, restrictTo } = require('../controllers/authController');
+const {
+  protect,
+  restrictTo,
+  verifyHMAC,
+} = require('../controllers/authController');
 
 const {
   getCheckoutUrl,
@@ -8,13 +12,16 @@ const {
   updateBooking,
   deleteBooking,
   createBooking,
+  completeCheckout,
 } = require('../controllers/bookingController');
 
 const router = express.Router();
 
+router.post('/paymob/pay', verifyHMAC, completeCheckout);
+
 router.use(protect);
 
-router.get('/paymob/:tourId', getCheckoutUrl);
+router.get('/paymob/:tourId/:userId', getCheckoutUrl);
 
 router.use(restrictTo(['admin', 'lead-guide']));
 

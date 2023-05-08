@@ -9,6 +9,7 @@ import { addReview } from './review';
 // DOM ELEMENTS
 const map = document.getElementById('map');
 const form = document.querySelector('.form--login');
+const success = document.querySelector('.success');
 const formReview = document.querySelector('.form--review');
 const signupForm = document.querySelector('.form--signup');
 const formUpdate = document.querySelector('.form-user-data');
@@ -22,6 +23,12 @@ const bookBtn = document.querySelector('#book-tour');
 if (map) {
   const locations = JSON.parse(map.dataset.locations);
   displayMap(locations);
+}
+
+if (success) {
+  window.setTimeout(() => {
+    location.assign('/my-tours');
+  }, 3 * 1000);
 }
 
 if (form)
@@ -92,8 +99,8 @@ if (logoutBtn) logoutBtn.addEventListener('click', logout);
 if (bookBtn)
   bookBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Processing...';
-    const { tourId } = e.target.dataset;
-    bookTour(tourId);
+    const { tourId, userId } = e.target.dataset;
+    bookTour(tourId, userId);
   });
 
 if (formReview)

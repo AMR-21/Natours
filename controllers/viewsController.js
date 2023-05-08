@@ -187,3 +187,13 @@ exports.getReset = catchAsync(async (req, res, next) => {
       title: `Update your password`,
     });
 });
+
+exports.checkout = (req, res, next) => {
+  const { success } = req.query;
+  if (success)
+    res.status(200).render('checkout', {
+      title: `Checkout`,
+      message: 'Payment completed successfully',
+      emoji: '🎉👌',
+    });
+};

@@ -153,6 +153,7 @@ var _review = require("./review");
 // DOM ELEMENTS
 const map = document.getElementById("map");
 const form = document.querySelector(".form--login");
+const success = document.querySelector(".success");
 const formReview = document.querySelector(".form--review");
 const signupForm = document.querySelector(".form--signup");
 const formUpdate = document.querySelector(".form-user-data");
@@ -166,6 +167,9 @@ if (map) {
     const locations = JSON.parse(map.dataset.locations);
     (0, _leaflet.displayMap)(locations);
 }
+if (success) window.setTimeout(()=>{
+    location.assign("/my-tours");
+}, 3000);
 if (form) form.addEventListener("submit", (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -217,8 +221,8 @@ if (formUpdatePassword) formUpdatePassword.addEventListener("submit", async (e)=
 if (logoutBtn) logoutBtn.addEventListener("click", (0, _login.logout));
 if (bookBtn) bookBtn.addEventListener("click", (e)=>{
     e.target.textContent = "Processing...";
-    const { tourId  } = e.target.dataset;
-    (0, _paymob.bookTour)(tourId);
+    const { tourId , userId  } = e.target.dataset;
+    (0, _paymob.bookTour)(tourId, userId);
 });
 if (formReview) formReview.addEventListener("submit", (e)=>{
     e.preventDefault();
@@ -232,7 +236,7 @@ if (formReview) formReview.addEventListener("submit", (e)=>{
 const alertMessage = document.querySelector("body").dataset.alert;
 if (alertMessage) (0, _alert.showAlert)("success", alertMessage, 20);
 
-},{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./alert":"kxdiQ","./review":"9Gbth","./paymob":"lyZvH"}],"dTCHC":[function(require,module,exports) {
+},{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./paymob":"lyZvH","./alert":"kxdiQ","./review":"9Gbth"}],"dTCHC":[function(require,module,exports) {
 "use strict";
 require("f7b257bdf3f995c0");
 var _global = _interopRequireDefault(require("7f0b1332339d4ac2"));
@@ -11551,6 +11555,25 @@ const updateData = async (data, type)=>{
     }
 };
 
+},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lyZvH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "bookTour", ()=>bookTour);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alert = require("./alert");
+const bookTour = async (tourId, userId)=>{
+    try {
+        // 1) get checkout URL from the API
+        const data = await (0, _axiosDefault.default)(`/api/v1/bookings/paymob/${tourId}/${userId}`);
+        const { url  } = data.data;
+        window.location.replace(url);
+    } catch (err) {
+        console.error(err);
+        (0, _alert.showAlert)("error", err);
+    }
+};
+
 },{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Gbth":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -11578,25 +11601,6 @@ const addReview = async (tour, user, review, rating)=>{
         }
     } catch (err) {
         (0, _alert.showAlert)("error", "You can't add more than one review for the same tour");
-    }
-};
-
-},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lyZvH":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "bookTour", ()=>bookTour);
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _alert = require("./alert");
-const bookTour = async (tourId)=>{
-    try {
-        // 1) get checkout URL from the API
-        const data = await (0, _axiosDefault.default)(`/api/v1/bookings/paymob/${tourId}`);
-        const { url  } = data.data;
-        window.location.replace(url);
-    } catch (err) {
-        console.error(err);
-        (0, _alert.showAlert)("error", err);
     }
 };
 

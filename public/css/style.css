@@ -140,6 +140,18 @@ body {
   font-size: 3.5rem;
 }
 
+.heading-secondary--success {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#7dd56f),
+    to(#28b487)
+  );
+  background-image: linear-gradient(to right, #7dd56f, #28b487);
+  font-size: 3.5rem;
+}
+
 .heading-primary,
 .heading-tertirary {
   color: #fff;
@@ -1190,15 +1202,24 @@ body {
   align-self: center;
 }
 
-.error {
+.error,
+.success {
   position: absolute;
   top: 35%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  max-width: 80rem;
+
   text-align: center;
 }
+
+.error {
+  max-width: 80rem;
+}
+.success {
+  max-width: 90rem;
+}
+
 .error__title {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1215,11 +1236,20 @@ body {
   font-size: 3.75rem;
   margin-left: 1rem;
 }
+.error__msg,
+.success__msg {
+  font-weight: 700;
+  margin: 0 auto;
+}
+
 .error__msg {
   font-size: 2.5rem;
-  font-weight: 700;
   max-width: 50rem;
-  margin: 0 auto;
+}
+
+.success__msg {
+  font-size: 1.8rem;
+  max-width: 60rem;
 }
 
 .login-form {

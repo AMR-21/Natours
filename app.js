@@ -69,11 +69,11 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // route put here because it is needed in raw format before being parsed by express.json
-app.post(
-  '/webhook-checkout',
-  express.raw({ type: 'application/json' }),
-  webhookCheckout
-);
+// app.post(
+//   '/webhook-checkout',
+//   express.raw({ type: 'application/json' }),
+//   webhookCheckout
+// );
 
 // body-parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));

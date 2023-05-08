@@ -120,6 +120,7 @@ exports.alerts = (req, res, next) => {
 
   next();
 };
+
 exports.getSignedUp = (req, res, next) => {
   // 1) build the template
 
@@ -195,5 +196,20 @@ exports.checkout = (req, res, next) => {
       title: `Checkout`,
       message: 'Payment completed successfully',
       emoji: '🎉👌',
+    });
+};
+
+exports.getMngTours = (req, res, next) => {
+  // 1) build the template
+
+  // 2) Render that template using data from 1
+  res
+    .status(200)
+    .set(
+      'Content-Security-Policy',
+      "connect-src 'self' https://cdnjs.cloudflare.com"
+    )
+    .render('mngtours', {
+      title: `Admin`,
     });
 };

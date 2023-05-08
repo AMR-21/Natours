@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import { displayMap } from './leaflet';
 import { login, logout, signup, forgot, reset } from './login';
 import { updateData } from './updateSetting';
+import { createTour, findSlug, findID } from './tour';
 import { bookTour } from './paymob';
 import { showAlert } from './alert';
 import { addReview } from './review';
@@ -9,6 +10,9 @@ import { addReview } from './review';
 // DOM ELEMENTS
 const map = document.getElementById('map');
 const form = document.querySelector('.form--login');
+const formAdd = document.querySelector('.form--tour-add');
+const formSlug = document.querySelector('.form--tour-slug');
+const formId = document.querySelector('.form--tour-id');
 const success = document.querySelector('.success');
 const formReview = document.querySelector('.form--review');
 const signupForm = document.querySelector('.form--signup');
@@ -30,6 +34,32 @@ if (success) {
     location.assign('/my-tours');
   }, 3 * 1000);
 }
+
+if (formAdd)
+  formAdd.addEventListener('submit', async (e) => {
+    e.preventDefault(); // prevent the default form submission behavior
+
+    const data = document.getElementById('tour-data').value; // get the form data as FormData object
+    createTour(JSON.parse(data));
+  });
+
+if (formSlug)
+  formSlug.addEventListener('submit', async (e) => {
+    e.preventDefault(); // prevent the default form submission behavior
+
+    const data = document.getElementById('slug').value; // get the form data as FormData object
+    const msg = await findSlug(data);
+    document.querySelector('.status-slug').value = msg;
+  });
+
+if (formId)
+  formId.addEventListener('submit', async (e) => {
+    e.preventDefault(); // prevent the default form submission behavior
+
+    const data = document.getElementById('id').value; // get the form data as FormData object
+    const msg = await findID(data);
+    document.querySelector('.status-ID').value = msg;
+  });
 
 if (form)
   form.addEventListener('submit', (e) => {

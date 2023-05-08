@@ -11,12 +11,14 @@ const {
   getReset,
   review,
   checkout,
+  getMngTours,
 } = require('../controllers/viewsController');
 
 const {
   isLoggedIn,
   protect,
   verifyHMAC,
+  restrictTo,
 } = require('../controllers/authController');
 
 const router = express.Router();
@@ -33,5 +35,6 @@ router.get('/tour/:slug', isLoggedIn, getTour);
 router.get('/me', protect, getMe);
 router.get('/my-tours', protect, getMyTours);
 router.get('/paymob/pay', isLoggedIn, verifyHMAC, checkout);
+router.get('/mngTours', protect, restrictTo('admin'), getMngTours);
 
 module.exports = router;

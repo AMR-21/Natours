@@ -1,0 +1,87 @@
+extends base
+
+
+
+block content
+  main.main
+    .user-view.mng
+      .sector.sector--search
+        h2.heading-secondary.ma-bt-lg Search for Tour by Slug
+        form.form.form--tour-slug
+            .form__group
+              label.form__label(for='slug') Tour Slug
+              input#slug.form__input(type='text', placeholder='the-forest-hiker', required)
+            .result
+              .form__group
+                button.btn.btn--green Search
+              .form__group
+                input#status.form__input.form__status.status-slug(type='text', disabled)  
+
+      .sector.sector--search
+        h2.heading-secondary.ma-bt-lg Search for Tour by ID
+        form.form.form--tour-id
+            .form__group
+              label.form__label(for='id') Tour ID
+              input#id.form__input(type='text', placeholder='5c88fa8cf4afda39709c2955', required)
+            .result  
+              .form__group
+                button.btn.btn--green Search
+              .form__group
+                input#status.form__input.form__status.status-ID(type='text', disabled)
+
+      .sector.sector--update-price
+        h2.heading-secondary.ma-bt-lg Update Tour price
+        form.form.form--tour-id
+            .form__group
+              label.form__label(for='uid') Tour ID
+              input#uid.form__input(type='text', placeholder='5c88fa8cf4afda39709c2955', required)
+            .form__group
+              label.form__label(for='price') Price
+              input#price.form__input(type='number', placeholder='100', required,min=100, max = 5000)  
+            .result  
+              .form__group
+                button.btn.btn--green Search
+              .form__group
+                input#status.form__input.form__status.status-Up(type='text', disabled)    
+
+      .sector.sector--add-tour
+        h2.heading-secondary.ma-bt-lg Create new tour
+        form.form.form--tour-add
+          .form__group
+            label.form__label(for='tour-data') Start location address
+            textarea.form__input#tour-data(type='text' name='tour-data' rows="10" cols="1500" required) 
+              |{
+              |  "startLocation": {
+              |       "description": "",
+              |        "type": "Point",
+              |        "coordinates": [-80.185942, 25.774772],
+              |        "address": ""
+              |     },
+              |      "images": ["tour-2-1.jpg", "tour-2-2.jpg", "tour-2-3.jpg"],
+              |      "startDates": [
+              |        "2023-06-19T09:00:00.000Z",
+              |      ],
+              |      "name": "",
+              |      "duration": 7,
+              |      "maxGroupSize": 15,
+              |      "difficulty": "medium",
+              |      "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a1f4e2f8fb814b56fa185"],
+              |      "price": 497,
+              |      "summary": "",
+              |      "description": "",
+              |      "imageCover": "",
+              |      "locations": [
+              |        {
+              |          "description": "",
+              |          "type": "Point",
+              |          "coordinates": [-80.128473, 25.781842],
+              |          "day": 1
+              |        }
+              |      ]
+              |}
+          
+          .result  
+            .form__group
+              button.btn.btn--green Create
+            .form__group
+              input#status.form__input.form__status.status-Up(type='text', disabled) 

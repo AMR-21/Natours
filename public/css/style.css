@@ -1376,6 +1376,48 @@ body {
   gap: 2rem;
   justify-content: center;
 }
+
 .mt-md {
   margin-top: 17rem;
 }
+
+.mng {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  padding: 3.2rem;
+  column-gap: 4.8rem;
+  height: 90rem;
+}
+
+.sector > h2 {
+  text-align: center;
+}
+
+.result {
+  display: flex;
+  gap: 3rem;
+}
+
+.form__status {
+  background-color: transparent;
+}
+
+.sector--add-tour {
+  grid-column: 1 / span 2;
+  /* margin-top: -65rem; */
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 1.2rem 0 0 0;
+}
+
+/* .form--tour-add {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 2.4rem;
+  align-items: center;
+}
+
+.form--tour-add > .result {
+  align-self: flex-end;
+} */

@@ -64,7 +64,7 @@ exports.getOne = (Model, name, popOptions = undefined) =>
 
     response.data[name] = doc;
 
-    res.status(201).json(response);
+    res.status(200).json(response);
   });
 
 exports.getAll = (Model, name) =>

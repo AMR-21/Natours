@@ -24,6 +24,14 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
+exports.processJSON = (req, res, next) => {
+  req.body.startLocation = JSON.parse(req.body.startLocation);
+  req.body.startDates = JSON.parse(req.body.startDates);
+  req.body.locations = JSON.parse(req.body.locations);
+
+  next();
+};
+
 // if only one multiple uploads upload.array(field,max count)
 exports.uploadTourImages = upload.fields([
   { name: 'imageCover', maxCount: 1 },
@@ -31,10 +39,14 @@ exports.uploadTourImages = upload.fields([
 ]);
 
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
+  console.log(req.body);
+
   if (!req.files.imageCover || !req.files.images) return next();
 
   // cover
-  req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+  req.body.imageCover = `tour-${
+    req.params.id || 'new'
+  }-${Date.now()}-cover.jpeg`;
   await sharp(req.files.imageCover[0].buffer)
     .resize(2000, 1333)
     .toFormat('jpeg')
@@ -46,7 +58,9 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
 
   await Promise.all(
     req.files.images.map(async (img, i) => {
-      const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+      const filename = `tour-${req.params.id || 'new'}-${Date.now()}-${
+        i + 1
+      }.jpeg`;
 
       await sharp(img.buffer)
         .resize(2000, 1333)

@@ -18,7 +18,7 @@ block content
                 input#status.form__input.form__status.status-slug(type='text', disabled)  
 
       .sector.sector--search
-        h2.heading-secondary.ma-bt-lg Search for Tour by ID
+        h2.heading-secondary.ma-bt-lg Search for Tour by ID and Modify
         form.form.form--tour-id
             .form__group
               label.form__label(for='id') Tour ID
@@ -27,61 +27,59 @@ block content
               .form__group
                 button.btn.btn--green Search
               .form__group
-                input#status.form__input.form__status.status-ID(type='text', disabled)
-
-      .sector.sector--update-price
-        h2.heading-secondary.ma-bt-lg Update Tour price
-        form.form.form--tour-id
+                a.btn.btn--green.btn--danger.btn--del(disabled) Delete
             .form__group
-              label.form__label(for='uid') Tour ID
-              input#uid.form__input(type='text', placeholder='5c88fa8cf4afda39709c2955', required)
-            .form__group
-              label.form__label(for='price') Price
-              input#price.form__input(type='number', placeholder='100', required,min=100, max = 5000)  
-            .result  
-              .form__group
-                button.btn.btn--green Search
-              .form__group
-                input#status.form__input.form__status.status-Up(type='text', disabled)    
+              input#status.form__input.form__status.status-ID(type='text', disabled)
+              
 
       .sector.sector--add-tour
         h2.heading-secondary.ma-bt-lg Create new tour
         form.form.form--tour-add
           .form__group
-            label.form__label(for='tour-data') Start location address
-            textarea.form__input#tour-data(type='text' name='tour-data' rows="10" cols="1500" required) 
-              |{
-              |  "startLocation": {
-              |       "description": "",
-              |        "type": "Point",
-              |        "coordinates": [-80.185942, 25.774772],
-              |        "address": ""
-              |     },
-              |      "images": ["tour-2-1.jpg", "tour-2-2.jpg", "tour-2-3.jpg"],
-              |      "startDates": [
-              |        "2023-06-19T09:00:00.000Z",
-              |      ],
-              |      "name": "",
-              |      "duration": 7,
-              |      "maxGroupSize": 15,
-              |      "difficulty": "medium",
-              |      "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a1f4e2f8fb814b56fa185"],
-              |      "price": 497,
-              |      "summary": "",
-              |      "description": "",
-              |      "imageCover": "",
-              |      "locations": [
-              |        {
-              |          "description": "",
-              |          "type": "Point",
-              |          "coordinates": [-80.128473, 25.781842],
-              |          "day": 1
-              |        }
-              |      ]
-              |}
-          
+            label(for='name') Name
+            input.form__input#name(type='text' name='name' required)
+          .form__group
+            label(for='difficulty') Difficulty
+            input.form__input#difficulty(type='text' name='difficulty' required)
+          .form__group
+            label(for='price') Price
+            input.form__input#price(type='number' name='price' required)
+          .form__group
+            label(for='summary') Summary
+            input.form__input#summary(type='text' name='summary' required)
+          .form__group
+            label(for='description') Description
+            input.form__input#description(type='text' name='description' required)
+          .form__group
+            label(for='duration') Duration
+            input.form__input#duration(type='number' name='duration' required)
+          .form__group
+            label(for='maxGroupSize') Max Group Size
+            input.form__input#maxGroupSize(type='number' name='maxGroupSize' required)
+          .form__group
+            label(for='startLocationDescription') Start Location
+            input.form__input#startLocationDescription(type='text' placeholder='Object type of GeoLocation' name='startLocation' required)
+          .form__group
+            label(for='startDates') Start Dates
+            input.form__input#startDates(type='text' placeholder='Array type of dates' name='startDates' required)
+          .form__group
+            label(for='locations') Locations
+            input.form__input#locations(type='text' placeholder='Array type of GeoLocations' name='locations' required)
+          .form__group
+            label(for='imageCover') Image Cover
+            input.form__input#imageCover(type='file' name='imageCover' required)
+          .form__group
+            label(for='images1') Image 1
+            input.form__input#images1(type='file' name='images' required)
+          .form__group
+            label(for='images2') Image 2
+            input.form__input#images2(type='file' name='images' required)
+          .form__group
+            label(for='images3') Image 3
+            input.form__input#images3(type='file' name='images' required)
+
           .result  
-            .form__group
-              button.btn.btn--green Create
-            .form__group
-              input#status.form__input.form__status.status-Up(type='text', disabled) 
+                .form__group
+                  button.btn.btn--green Create
+                .form__group
+                  input#status.form__input.form__status.status-Up(type='text', disabled) 

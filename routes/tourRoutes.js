@@ -12,6 +12,7 @@ const {
   getDistances,
   resizeTourImages,
   uploadTourImages,
+  processJSON,
 } = require('../controllers/tourController');
 
 const { protect, restrictTo } = require('../controllers/authController');
@@ -46,7 +47,14 @@ router.route('/distances/:latlng/unit/:unit').get(getDistances);
 router
   .route('/')
   .get(getAllTours)
-  .post(protect, restrictTo('admin', 'lead-guide'), createTour);
+  .post(
+    protect,
+    restrictTo('admin', 'lead-guide'),
+    uploadTourImages,
+    resizeTourImages,
+    processJSON,
+    createTour
+  );
 
 router
   .route('/:id')

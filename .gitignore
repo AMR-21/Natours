@@ -5,3 +5,4 @@ dist
 .hintrc
 *.env
 *.exe
+import.js

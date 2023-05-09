@@ -176,8 +176,9 @@ if (success) window.setTimeout(()=>{
 }, 3000);
 if (formAdd) formAdd.addEventListener("submit", async (e)=>{
     e.preventDefault(); // prevent the default form submission behavior
-    const data = document.getElementById("tour-data").value; // get the form data as FormData object
-    (0, _tour.createTour)(JSON.parse(data));
+    // const data = document.getElementById('tour-data').value; // get the form data as FormData object
+    const data = new FormData(formAdd);
+    (0, _tour.createTour)(data);
 });
 if (formSlug) formSlug.addEventListener("submit", async (e)=>{
     e.preventDefault(); // prevent the default form submission behavior
@@ -187,9 +188,15 @@ if (formSlug) formSlug.addEventListener("submit", async (e)=>{
 });
 if (formId) formId.addEventListener("submit", async (e)=>{
     e.preventDefault(); // prevent the default form submission behavior
+    if (e.target.classList.contains("btn--del")) return;
     const data = document.getElementById("id").value; // get the form data as FormData object
-    const msg = await (0, _tour.findID)(data);
+    const { msg , id  } = await (0, _tour.findID)(data);
     document.querySelector(".status-ID").value = msg;
+    if (id) {
+        const del = document.querySelector(".btn--del");
+        del.disabled = false;
+        del.addEventListener("click", (0, _tour.delTour).bind(del, id));
+    }
 });
 if (form) form.addEventListener("submit", (e)=>{
     e.preventDefault();
@@ -254,6 +261,13 @@ if (formReview) formReview.addEventListener("submit", (e)=>{
     const rating = document.querySelector("#rating").value;
     (0, _review.addReview)(tour, user, review, rating);
 });
+// const formT = document.getElementById('myForm');
+// if (formT)
+//   formT.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const formData = new FormData(formT);
+//     console.log(formData.get('name'));
+//   });
 const alertMessage = document.querySelector("body").dataset.alert;
 if (alertMessage) (0, _alert.showAlert)("success", alertMessage, 20);
 
@@ -11582,6 +11596,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createTour", ()=>createTour);
 parcelHelpers.export(exports, "findSlug", ()=>findSlug);
 parcelHelpers.export(exports, "findID", ()=>findID);
+parcelHelpers.export(exports, "delTour", ()=>delTour);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alert = require("./alert");
@@ -11624,13 +11639,30 @@ const findID = async (id)=>{
         });
         if (res.data.status === "success") {
             (0, _alert.showAlert)("success", "Tour Found!");
-            return `Tour Name: ${res.data.data.tour.name}`;
+            return {
+                msg: `Tour Name: ${res.data.data.tour.name}`,
+                id
+            };
         }
+    } catch (err) {
         (0, _alert.showAlert)("error", "Tour Not Found!");
-        return "Tour Not Found!";
+        return {
+            msg: `Tour Not Found!`
+        };
+    }
+};
+const delTour = async (id)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "DELETE",
+            url: `/api/v1/tours/${id}`
+        });
+        if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Tour deleted!");
+            undefined.disabled = true;
+        }
     } catch (err) {
         (0, _alert.showAlert)("error", err.response.data.message);
-        return "Tour Not Found!";
     }
 };
 

@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import { displayMap } from './leaflet';
 import { login, logout, signup, forgot, reset } from './login';
 import { updateData } from './updateSetting';
-import { createTour, findSlug, findID } from './tour';
+import { createTour, findSlug, findID, delTour } from './tour';
 import { bookTour } from './paymob';
 import { showAlert } from './alert';
 import { addReview } from './review';
@@ -39,8 +39,9 @@ if (formAdd)
   formAdd.addEventListener('submit', async (e) => {
     e.preventDefault(); // prevent the default form submission behavior
 
-    const data = document.getElementById('tour-data').value; // get the form data as FormData object
-    createTour(JSON.parse(data));
+    // const data = document.getElementById('tour-data').value; // get the form data as FormData object
+    const data = new FormData(formAdd);
+    createTour(data);
   });
 
 if (formSlug)
@@ -55,10 +56,17 @@ if (formSlug)
 if (formId)
   formId.addEventListener('submit', async (e) => {
     e.preventDefault(); // prevent the default form submission behavior
+    if (e.target.classList.contains('btn--del')) return;
 
     const data = document.getElementById('id').value; // get the form data as FormData object
-    const msg = await findID(data);
+    const { msg, id } = await findID(data);
     document.querySelector('.status-ID').value = msg;
+    if (id) {
+      const del = document.querySelector('.btn--del');
+      del.disabled = false;
+
+      del.addEventListener('click', delTour.bind(del, id));
+    }
   });
 
 if (form)
@@ -143,6 +151,18 @@ if (formReview)
     const rating = document.querySelector('#rating').value;
     addReview(tour, user, review, rating);
   });
+
+// const formT = document.getElementById('myForm');
+
+// if (formT)
+//   formT.addEventListener('submit', (e) => {
+//     e.preventDefault();
+
+//     const formData = new FormData(formT);
+
+//     console.log(formData.get('name'));
+//   });
+
 const alertMessage = document.querySelector('body').dataset.alert;
 
 if (alertMessage) showAlert('success', alertMessage, 20);

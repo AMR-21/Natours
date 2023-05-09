@@ -1405,13 +1405,13 @@ body {
 }
 
 .sector--add-tour {
-  grid-column: 1 / span 2;
+  grid-column: 1 / -1;
   /* margin-top: -65rem; */
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   padding: 1.2rem 0 0 0;
 }
 
-/* .form--tour-add {
+.form--tour-add {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 2.4rem;
@@ -1420,4 +1420,14 @@ body {
 
 .form--tour-add > .result {
   align-self: flex-end;
-} */
+}
+
+.btn--green.btn--danger {
+  color: #fff;
+  background-color: #eb4d4b;
+}
+
+.btn--hide {
+  /* color: #fff; */
+  background-color: #ec8347;
+}

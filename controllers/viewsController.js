@@ -197,6 +197,12 @@ exports.checkout = (req, res, next) => {
       message: 'Payment completed successfully',
       emoji: '🎉👌',
     });
+
+  res.status(200).render('checkout-fail', {
+    title: `Checkout`,
+    message: 'Payment Failed',
+    emoji: '😢',
+  });
 };
 
 exports.getMngTours = (req, res, next) => {

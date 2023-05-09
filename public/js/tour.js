@@ -47,13 +47,26 @@ export const findID = async (id) => {
 
     if (res.data.status === 'success') {
       showAlert('success', 'Tour Found!');
-      return `Tour Name: ${res.data.data.tour.name}`;
+      return { msg: `Tour Name: ${res.data.data.tour.name}`, id };
     }
-
+  } catch (err) {
     showAlert('error', 'Tour Not Found!');
-    return 'Tour Not Found!';
+    return { msg: `Tour Not Found!` };
+  }
+};
+
+export const delTour = async (id) => {
+  try {
+    const res = await axios({
+      method: 'DELETE',
+      url: `/api/v1/tours/${id}`,
+    });
+
+    if (res.data.status === 'success') {
+      showAlert('success', 'Tour deleted!');
+      this.disabled = true;
+    }
   } catch (err) {
     showAlert('error', err.response.data.message);
-    return 'Tour Not Found!';
   }
 };

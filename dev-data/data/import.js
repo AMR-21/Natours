@@ -27,9 +27,9 @@ const reviews = JSON.parse(fs.readFileSync('reviews.json', 'utf-8'));
 
 const importData = async () => {
   try {
-    // await Tour.create(tours);
+    await Tour.create(tours);
     await User.create(users);
-    // await Review.create(reviews);
+    await Review.create(reviews);
     // console.log('Success');
     process.exit();
   } catch (err) {

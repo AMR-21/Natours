@@ -5,7 +5,7 @@ const Tour = require('../../models/tourModel');
 const User = require('../../models/userModel');
 const Review = require('../../models/reviewModel');
 
-dotenv.config({ path: './../../config.env' });
+dotenv.config({ path: '../../config.env' });
 
 mongoose.connect(
   `${process.env.DB.replace('<PASSWORD>', process.env.DB_PASSWORD)}`,
@@ -30,10 +30,10 @@ const importData = async () => {
     // await Tour.create(tours);
     await User.create(users);
     // await Review.create(reviews);
-    console.log('Success');
+    // console.log('Success');
     process.exit();
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 
@@ -43,10 +43,10 @@ const deleteAll = async () => {
     await Tour.deleteMany();
     await User.deleteMany();
     await Review.deleteMany();
-    console.log('Success');
+    // console.log('Success');
     process.exit();
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 

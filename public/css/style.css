@@ -1428,7 +1428,12 @@ body {
   background-color: #eb4d4b;
 }
 
-.btn--hide {
+.btn--hide,
+.btn--upd {
   /* color: #fff; */
   background-color: #ec8347;
+}
+
+.sec--tour-id {
+  grid-column: 2/-1;
 }

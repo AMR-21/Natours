@@ -1,0 +1,27 @@
+extends base
+
+
+
+block content
+  main.main
+    .user-view.mng
+        h2.heading-secondary.ma-bt-lg Search for User by ID and Modify
+        form.form.form--user-id
+            .form__group
+              label.form__label(for='id') User ID
+              input#id.form__input(type='text', placeholder='5c88fa8cf4afda39709c2955', required)
+            .form__group
+              label.form__label(for='role') Update role
+              input#role.form__input(type='text', placeholder='admin')  
+            .result  
+              .form__group
+                button.btn.btn--green Search
+              .form__group
+                input#email.form__input.form__status.status-email(type='text', disabled)
+            .result 
+              .form__group
+                a.btn.btn--green.btn--danger.btn--del(disabled) Delete
+              .form__group
+                a.btn.btn--green.btn--upd(disabled) Update
+
+    

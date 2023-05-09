@@ -1,0 +1,22 @@
+extends base
+
+
+
+block content
+  main.main
+    .user-view.mng
+        h2.heading-secondary.ma-bt-lg Search for Booking by ID and Delete
+        form.form.form--booking-id
+            .form__group
+              label.form__label(for='id') Booking ID
+              input#id.form__input(type='text', placeholder='5c88fa8cf4afda39709c2955', required)
+            .result  
+              .form__group
+                button.btn.btn--green Search
+              .form__group
+                input#bid.form__input.form__status.status-bid(type='text', disabled)
+            .result 
+              .form__group
+                a.btn.btn--green.btn--danger.btn--del(disabled) Delete
+
+    

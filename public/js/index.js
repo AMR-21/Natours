@@ -2,7 +2,19 @@ import '@babel/polyfill';
 import { displayMap } from './leaflet';
 import { login, logout, signup, forgot, reset } from './login';
 import { updateData } from './updateSetting';
-import { createTour, findSlug, findID, delTour } from './tour';
+import {
+  createTour,
+  findSlug,
+  findID,
+  delTour,
+  findUserID,
+  updUser,
+  delUser,
+  delRev,
+  findRev,
+  delBok,
+  findBok,
+} from './admin';
 import { bookTour } from './paymob';
 import { showAlert } from './alert';
 import { addReview } from './review';
@@ -11,6 +23,9 @@ import { addReview } from './review';
 const map = document.getElementById('map');
 const form = document.querySelector('.form--login');
 const formAdd = document.querySelector('.form--tour-add');
+const formUser = document.querySelector('.form--user-id');
+const formRev = document.querySelector('.form--review-id');
+const formBok = document.querySelector('.form--booking-id');
 const formSlug = document.querySelector('.form--tour-slug');
 const formId = document.querySelector('.form--tour-id');
 const success = document.querySelector('.success');
@@ -53,10 +68,33 @@ if (formSlug)
     document.querySelector('.status-slug').value = msg;
   });
 
+if (formUser)
+  formUser.addEventListener('submit', async (e) => {
+    e.preventDefault(); // prevent the default form submission behavior
+
+    const data = document.getElementById('id').value; // get the form data as FormData object
+
+    const { msg, id } = await findUserID(data);
+    document.querySelector('.status-email').value = msg;
+    if (id) {
+      const del = document.querySelector('.btn--del');
+      const upd = document.querySelector('.btn--upd');
+
+      del.disabled = false;
+      upd.disabled = false;
+
+      del.addEventListener('click', delUser.bind(del, id));
+      upd.addEventListener('click', () => {
+        const role = document.getElementById('role').value;
+        updUser(id, role);
+        upd.disabled = true;
+      });
+    }
+  });
+
 if (formId)
   formId.addEventListener('submit', async (e) => {
     e.preventDefault(); // prevent the default form submission behavior
-    if (e.target.classList.contains('btn--del')) return;
 
     const data = document.getElementById('id').value; // get the form data as FormData object
     const { msg, id } = await findID(data);
@@ -66,6 +104,36 @@ if (formId)
       del.disabled = false;
 
       del.addEventListener('click', delTour.bind(del, id));
+    }
+  });
+
+if (formRev)
+  formRev.addEventListener('submit', async (e) => {
+    e.preventDefault(); // prevent the default form submission behavior
+
+    const data = document.getElementById('id').value; // get the form data as FormData object
+    const { msg, id } = await findRev(data);
+    document.querySelector('.status-rid').value = msg;
+    if (id) {
+      const del = document.querySelector('.btn--del');
+      del.disabled = false;
+
+      del.addEventListener('click', delRev.bind(del, id));
+    }
+  });
+
+if (formBok)
+  formBok.addEventListener('submit', async (e) => {
+    e.preventDefault(); // prevent the default form submission behavior
+
+    const data = document.getElementById('id').value; // get the form data as FormData object
+    const { msg, id } = await findBok(data);
+    document.querySelector('.status-bid').value = msg;
+    if (id) {
+      const del = document.querySelector('.btn--del');
+      del.disabled = false;
+
+      del.addEventListener('click', delBok.bind(del, id));
     }
   });
 

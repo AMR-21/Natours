@@ -191,12 +191,14 @@ exports.getReset = catchAsync(async (req, res, next) => {
 
 exports.checkout = (req, res, next) => {
   const { success } = req.query;
-  if (success)
+  if (success) {
     res.status(200).render('checkout', {
       title: `Checkout`,
       message: 'Payment completed successfully',
       emoji: '🎉👌',
     });
+    return;
+  }
 
   res.status(200).render('checkout-fail', {
     title: `Checkout`,
@@ -216,6 +218,51 @@ exports.getMngTours = (req, res, next) => {
       "connect-src 'self' https://cdnjs.cloudflare.com"
     )
     .render('mngtours', {
+      title: `Admin`,
+    });
+};
+
+exports.getMngUsers = (req, res, next) => {
+  // 1) build the template
+
+  // 2) Render that template using data from 1
+  res
+    .status(200)
+    .set(
+      'Content-Security-Policy',
+      "connect-src 'self' https://cdnjs.cloudflare.com"
+    )
+    .render('mngusers', {
+      title: `Admin`,
+    });
+};
+
+exports.getMngReviews = (req, res, next) => {
+  // 1) build the template
+
+  // 2) Render that template using data from 1
+  res
+    .status(200)
+    .set(
+      'Content-Security-Policy',
+      "connect-src 'self' https://cdnjs.cloudflare.com"
+    )
+    .render('mngreviews', {
+      title: `Admin`,
+    });
+};
+
+exports.getMngBookings = (req, res, next) => {
+  // 1) build the template
+
+  // 2) Render that template using data from 1
+  res
+    .status(200)
+    .set(
+      'Content-Security-Policy',
+      "connect-src 'self' https://cdnjs.cloudflare.com"
+    )
+    .render('mngbookings', {
       title: `Admin`,
     });
 };

@@ -147,7 +147,7 @@ var _polyfill = require("@babel/polyfill");
 var _leaflet = require("./leaflet");
 var _login = require("./login");
 var _updateSetting = require("./updateSetting");
-var _tour = require("./tour");
+var _admin = require("./admin");
 var _paymob = require("./paymob");
 var _alert = require("./alert");
 var _review = require("./review");
@@ -155,6 +155,9 @@ var _review = require("./review");
 const map = document.getElementById("map");
 const form = document.querySelector(".form--login");
 const formAdd = document.querySelector(".form--tour-add");
+const formUser = document.querySelector(".form--user-id");
+const formRev = document.querySelector(".form--review-id");
+const formBok = document.querySelector(".form--booking-id");
 const formSlug = document.querySelector(".form--tour-slug");
 const formId = document.querySelector(".form--tour-id");
 const success = document.querySelector(".success");
@@ -178,24 +181,63 @@ if (formAdd) formAdd.addEventListener("submit", async (e)=>{
     e.preventDefault(); // prevent the default form submission behavior
     // const data = document.getElementById('tour-data').value; // get the form data as FormData object
     const data = new FormData(formAdd);
-    (0, _tour.createTour)(data);
+    (0, _admin.createTour)(data);
 });
 if (formSlug) formSlug.addEventListener("submit", async (e)=>{
     e.preventDefault(); // prevent the default form submission behavior
     const data = document.getElementById("slug").value; // get the form data as FormData object
-    const msg = await (0, _tour.findSlug)(data);
+    const msg = await (0, _admin.findSlug)(data);
     document.querySelector(".status-slug").value = msg;
+});
+if (formUser) formUser.addEventListener("submit", async (e)=>{
+    e.preventDefault(); // prevent the default form submission behavior
+    const data = document.getElementById("id").value; // get the form data as FormData object
+    const { msg , id  } = await (0, _admin.findUserID)(data);
+    document.querySelector(".status-email").value = msg;
+    if (id) {
+        const del = document.querySelector(".btn--del");
+        const upd = document.querySelector(".btn--upd");
+        del.disabled = false;
+        upd.disabled = false;
+        del.addEventListener("click", (0, _admin.delUser).bind(del, id));
+        upd.addEventListener("click", ()=>{
+            const role = document.getElementById("role").value;
+            (0, _admin.updUser)(id, role);
+            upd.disabled = true;
+        });
+    }
 });
 if (formId) formId.addEventListener("submit", async (e)=>{
     e.preventDefault(); // prevent the default form submission behavior
-    if (e.target.classList.contains("btn--del")) return;
     const data = document.getElementById("id").value; // get the form data as FormData object
-    const { msg , id  } = await (0, _tour.findID)(data);
+    const { msg , id  } = await (0, _admin.findID)(data);
     document.querySelector(".status-ID").value = msg;
     if (id) {
         const del = document.querySelector(".btn--del");
         del.disabled = false;
-        del.addEventListener("click", (0, _tour.delTour).bind(del, id));
+        del.addEventListener("click", (0, _admin.delTour).bind(del, id));
+    }
+});
+if (formRev) formRev.addEventListener("submit", async (e)=>{
+    e.preventDefault(); // prevent the default form submission behavior
+    const data = document.getElementById("id").value; // get the form data as FormData object
+    const { msg , id  } = await (0, _admin.findRev)(data);
+    document.querySelector(".status-rid").value = msg;
+    if (id) {
+        const del = document.querySelector(".btn--del");
+        del.disabled = false;
+        del.addEventListener("click", (0, _admin.delRev).bind(del, id));
+    }
+});
+if (formBok) formBok.addEventListener("submit", async (e)=>{
+    e.preventDefault(); // prevent the default form submission behavior
+    const data = document.getElementById("id").value; // get the form data as FormData object
+    const { msg , id  } = await (0, _admin.findBok)(data);
+    document.querySelector(".status-bid").value = msg;
+    if (id) {
+        const del = document.querySelector(".btn--del");
+        del.disabled = false;
+        del.addEventListener("click", (0, _admin.delBok).bind(del, id));
     }
 });
 if (form) form.addEventListener("submit", (e)=>{
@@ -271,7 +313,7 @@ if (formReview) formReview.addEventListener("submit", (e)=>{
 const alertMessage = document.querySelector("body").dataset.alert;
 if (alertMessage) (0, _alert.showAlert)("success", alertMessage, 20);
 
-},{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./tour":"33Nn2","./paymob":"lyZvH","./alert":"kxdiQ","./review":"9Gbth"}],"dTCHC":[function(require,module,exports) {
+},{"@babel/polyfill":"dTCHC","./leaflet":"xvuTT","./login":"7yHem","./updateSetting":"6GcZk","./admin":"iGA57","./paymob":"lyZvH","./alert":"kxdiQ","./review":"9Gbth"}],"dTCHC":[function(require,module,exports) {
 "use strict";
 require("f7b257bdf3f995c0");
 var _global = _interopRequireDefault(require("7f0b1332339d4ac2"));
@@ -11590,13 +11632,20 @@ const updateData = async (data, type)=>{
     }
 };
 
-},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"33Nn2":[function(require,module,exports) {
+},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iGA57":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createTour", ()=>createTour);
 parcelHelpers.export(exports, "findSlug", ()=>findSlug);
 parcelHelpers.export(exports, "findID", ()=>findID);
+parcelHelpers.export(exports, "findUserID", ()=>findUserID);
+parcelHelpers.export(exports, "findRev", ()=>findRev);
+parcelHelpers.export(exports, "findBok", ()=>findBok);
+parcelHelpers.export(exports, "updUser", ()=>updUser);
 parcelHelpers.export(exports, "delTour", ()=>delTour);
+parcelHelpers.export(exports, "delUser", ()=>delUser);
+parcelHelpers.export(exports, "delRev", ()=>delRev);
+parcelHelpers.export(exports, "delBok", ()=>delBok);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alert = require("./alert");
@@ -11607,7 +11656,12 @@ const createTour = async (data)=>{
             url: "/api/v1/tours",
             data
         });
-        if (res.data.status === "success") (0, _alert.showAlert)("success", "Tour created successfully!");
+        if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Tour created successfully!");
+            window.setTimeout(()=>{
+                location.reload();
+            }, 1700);
+        }
     } catch (err) {
         (0, _alert.showAlert)("error", err.response.data.message);
     }
@@ -11651,14 +11705,133 @@ const findID = async (id)=>{
         };
     }
 };
+const findUserID = async (id)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "GET",
+            url: `/api/v1/users/${id}`
+        });
+        if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "User Found!");
+            return {
+                msg: `User Email: ${res.data.data.user.email}`,
+                id
+            };
+        }
+    } catch (err) {
+        (0, _alert.showAlert)("error", "User Not Found!");
+        return {
+            msg: `User Not Found!`
+        };
+    }
+};
+const findRev = async (id)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "GET",
+            url: `/api/v1/reviews/${id}`
+        });
+        if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Review Found!");
+            return {
+                msg: `Review found: ${res.data.data.review.id}`,
+                id
+            };
+        }
+    } catch (err) {
+        (0, _alert.showAlert)("error", "Review Not Found!");
+        return {
+            msg: `Review Not Found!`
+        };
+    }
+};
+const findBok = async (id)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "GET",
+            url: `/api/v1/bookings/${id}`
+        });
+        if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Booking Found!");
+            return {
+                msg: `Booking found: ${res.data.data.booking.id}`,
+                id
+            };
+        }
+    } catch (err) {
+        (0, _alert.showAlert)("error", "Booking Not Found!");
+        return {
+            msg: `Booking Not Found!`
+        };
+    }
+};
+const updUser = async (id, role)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "PATCH",
+            url: `/api/v1/users/${id}`,
+            data: {
+                role
+            }
+        });
+        if (res.data.status === "success") (0, _alert.showAlert)("success", "User updated!");
+    } catch (err) {
+        (0, _alert.showAlert)("error", "User Not Found!");
+        return {
+            msg: `User Not Found!`
+        };
+    }
+};
 const delTour = async (id)=>{
     try {
         const res = await (0, _axiosDefault.default)({
             method: "DELETE",
             url: `/api/v1/tours/${id}`
         });
-        if (res.data.status === "success") {
+        if (res.status === 204) {
             (0, _alert.showAlert)("success", "Tour deleted!");
+            undefined.disabled = true;
+        }
+    } catch (err) {
+        (0, _alert.showAlert)("error", err.response.data.message);
+    }
+};
+const delUser = async (id)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "DELETE",
+            url: `/api/v1/users/${id}`
+        });
+        if (res.status === 204) {
+            (0, _alert.showAlert)("success", "User deleted!");
+            undefined.disabled = true;
+        }
+    } catch (err) {
+        (0, _alert.showAlert)("error", err.response.data.message);
+    }
+};
+const delRev = async (id)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "DELETE",
+            url: `/api/v1/reviews/${id}`
+        });
+        if (res.status === 204) {
+            (0, _alert.showAlert)("success", "Review deleted!");
+            undefined.disabled = true;
+        }
+    } catch (err) {
+        (0, _alert.showAlert)("error", err.response.data.message);
+    }
+};
+const delBok = async (id)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "DELETE",
+            url: `/api/v1/bookings/${id}`
+        });
+        if (res.status === 204) {
+            (0, _alert.showAlert)("success", "Booking deleted!");
             undefined.disabled = true;
         }
     } catch (err) {

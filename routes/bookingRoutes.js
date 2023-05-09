@@ -23,7 +23,7 @@ router.use(protect);
 
 router.get('/paymob/:tourId/:userId', getCheckoutUrl);
 
-router.use(restrictTo(['admin', 'lead-guide']));
+router.use(restrictTo('admin', 'lead-guide'));
 
 router.route('/').get(getBookings).post(createBooking);
 

@@ -17,7 +17,7 @@ block content
               .form__group
                 input#status.form__input.form__status.status-slug(type='text', disabled)  
 
-      .sector.sector--search
+      .sector.sector--search.sec--tour-id
         h2.heading-secondary.ma-bt-lg Search for Tour by ID and Modify
         form.form.form--tour-id
             .form__group
@@ -27,9 +27,9 @@ block content
               .form__group
                 button.btn.btn--green Search
               .form__group
-                a.btn.btn--green.btn--danger.btn--del(disabled) Delete
+                input#status.form__input.form__status.status-ID(type='text', disabled)
             .form__group
-              input#status.form__input.form__status.status-ID(type='text', disabled)
+              a.btn.btn--green.btn--danger.btn--del(disabled) Delete
               
 
       .sector.sector--add-tour

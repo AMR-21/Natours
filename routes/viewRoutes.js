@@ -12,6 +12,9 @@ const {
   review,
   checkout,
   getMngTours,
+  getMngUsers,
+  getMngReviews,
+  getMngBookings,
 } = require('../controllers/viewsController');
 
 const {
@@ -36,5 +39,8 @@ router.get('/me', protect, getMe);
 router.get('/my-tours', protect, getMyTours);
 router.get('/paymob/pay', isLoggedIn, verifyHMAC, checkout);
 router.get('/mngTours', protect, restrictTo('admin'), getMngTours);
+router.get('/mngUsers', protect, restrictTo('admin'), getMngUsers);
+router.get('/mngReviews', protect, restrictTo('admin'), getMngReviews);
+router.get('/mngBookings', protect, restrictTo('admin'), getMngBookings);
 
 module.exports = router;

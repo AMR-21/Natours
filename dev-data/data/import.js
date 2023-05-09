@@ -27,13 +27,13 @@ const reviews = JSON.parse(fs.readFileSync('reviews.json', 'utf-8'));
 
 const importData = async () => {
   try {
-    await Tour.create(tours);
+    // await Tour.create(tours);
     await User.create(users);
-    await Review.create(reviews);
-    // console.log('Success');
+    // await Review.create(reviews);
+    console.log('Success');
     process.exit();
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 };
 
@@ -43,10 +43,10 @@ const deleteAll = async () => {
     await Tour.deleteMany();
     await User.deleteMany();
     await Review.deleteMany();
-    // console.log('Success');
+    console.log('Success');
     process.exit();
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 };
 

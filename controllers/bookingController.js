@@ -103,7 +103,8 @@ exports.createBooking = factory.createOne(Booking, 'booking');
 exports.deleteBooking = factory.deleteOne(Booking);
 
 exports.completeCheckout = catchAsync(async (req, res, next) => {
-  if (!req.body.obj.success) next();
+  if (!req.body.obj.success || req.body.obj.pending)
+    return next(new AppError('Payment failed', 400));
 
   const price = req.body.obj.order.items[0].amount_cents / 100;
 

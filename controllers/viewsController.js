@@ -1,9 +1,3 @@
-// render renders the template name passed
-// location specified up (views)
-// object is set of variables passed to pug and called locals there
-// res.status(200).render('base', {
-//   title: 'KOSOMK',
-// });
 const Tour = require('../models/tourModel');
 const Booking = require('../models/bookingModel');
 const catchAsync = require('../utils/catchAsync');
@@ -190,8 +184,8 @@ exports.getReset = catchAsync(async (req, res, next) => {
 });
 
 exports.checkout = (req, res, next) => {
-  const { success } = req.query;
-  if (success) {
+  const { success, pending } = req.query;
+  if (success === 'true' && pending === 'false') {
     res.status(200).render('checkout', {
       title: `Checkout`,
       message: 'Payment completed successfully',

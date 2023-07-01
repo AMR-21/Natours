@@ -35,7 +35,7 @@ describe('sendToken function', () => {
       password: 'password',
     };
 
-    // Mock the signToken function
+    // Mock the JWT sign function
     jwt.sign = jest.fn().mockReturnValue('mocked-token');
 
     sendToken(user, 200, req, res);

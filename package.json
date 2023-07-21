@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "start cmd /k npm run start:dev && start cmd /k npm run tests",
+    "start": "start cmd /k npm run start:dev && start cmd /k npm run test",
     "start:dev": "nodemon server.js",
-    "tests": "npx jest Tests --watchAll",
+    "test": "npx jest Tests --watchAll",
     "tunnel": "ngrok && ngrok http 3000",
     "start:prod": "SET NODE_ENV=production&& nodemon server.js",
     "debug": "ndb server.js",

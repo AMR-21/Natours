@@ -107,7 +107,11 @@ app.use(compression());
 
 // Routers
 // executes in order
-// app.use('/', viewRouter);
+app.use('/', (req, res, next) => {
+  res.status(200).json({
+    target: 'kosomk',
+  });
+});
 
 // API routes
 app.use('/api/v1/tours', tourRouter);

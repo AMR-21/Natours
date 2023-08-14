@@ -19,8 +19,8 @@ mongoose.connect(
 
 // READ JSON FILE
 
-const tours = JSON.parse(fs.readFileSync('tours.json', 'utf-8'));
 const users = JSON.parse(fs.readFileSync('users.json', 'utf-8'));
+const tours = JSON.parse(fs.readFileSync('tours.json', 'utf-8'));
 const reviews = JSON.parse(fs.readFileSync('reviews.json', 'utf-8'));
 
 // Import Data in DB

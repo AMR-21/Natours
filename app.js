@@ -27,9 +27,9 @@ app.enable('trust proxy');
 
 // set the template engine in express
 // templates are called views in pug
-app.set('view engine', 'pug');
+// app.set('view engine', 'pug');
 // set the path to views folder
-app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
 
 // Global Middleware
 // implement CORS
@@ -107,7 +107,9 @@ app.use((req, res, next) => {
 
 // Routers
 // executes in order
-app.use('/', viewRouter);
+app.use('/', (req, res, next) => {
+  res.send('hi');
+});
 
 // API routes
 app.use('/api/v1/tours', tourRouter);

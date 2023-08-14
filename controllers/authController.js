@@ -241,7 +241,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   module.exports.sendToken(user, 200, req, res);
 });
 
-// CCD1251AFDFCC8CF7C1FFAD476FEE3E0
 exports.verifyHMAC = (req, res, next) => {
   const fields = JSON.parse(process.env.PAYMOB_HMAC_STRING_KEYS);
 

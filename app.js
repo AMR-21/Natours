@@ -18,7 +18,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
-// const viewRouter = require('./routes/viewRoutes');
+const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 
 const app = express();
@@ -27,9 +27,9 @@ app.enable('trust proxy');
 
 // set the template engine in express
 // templates are called views in pug
-// app.set('view engine', 'pug');
-// // set the path to views folder
-// app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+// set the path to views folder
+app.set('views', path.join(__dirname, 'views'));
 
 // Global Middleware
 // implement CORS
@@ -107,6 +107,8 @@ app.use(compression());
 
 // Routers
 // executes in order
+
+app.use('/', viewRouter);
 
 // API routes
 app.use('/api/v1/tours', tourRouter);

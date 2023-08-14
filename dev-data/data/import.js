@@ -8,7 +8,7 @@ const Review = require('../../models/reviewModel');
 dotenv.config({ path: '../../config.env' });
 
 mongoose.connect(
-  `${process.env.DB.replace('<PASSWORD>', process.env.DB_PASSWORD)}`,
+  `${process.env.DB.replace('<password>', process.env.DB_PASSWORD)}`,
   {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -27,22 +27,22 @@ const reviews = JSON.parse(fs.readFileSync('reviews.json', 'utf-8'));
 
 const importData = async () => {
   try {
-    await Tour.create(tours);
-    await User.create(users);
-    await Review.create(reviews);
+    // await Tour.create(tours);
+    await User.create(users, { validateBeforeSave: false });
+    // await Review.create(reviews);
     // console.log('Success');
     process.exit();
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 };
 
 // Delete data
 const deleteAll = async () => {
   try {
-    await Tour.deleteMany();
+    // await Tour.deleteMany();
     await User.deleteMany();
-    await Review.deleteMany();
+    // await Review.deleteMany();
     // console.log('Success');
     process.exit();
   } catch (err) {

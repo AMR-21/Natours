@@ -10,14 +10,27 @@ dotenv.config({ path: './config.env' });
 
 const app = require('./app');
 
-mongoose
-  .connect(`${process.env.DB.replace('<password>', process.env.DB_PASSWORD)}`, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connection established'));
+if (process.env.DB_HOST === 'local')
+  mongoose
+    .connect(process.env.DB_LOCAL, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true,
+    })
+    .then(() => console.log('DB connection established'));
+else
+  mongoose
+    .connect(
+      `${process.env.DB.replace('<password>', process.env.DB_PASSWORD)}`,
+      {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+      }
+    )
+    .then(() => console.log('DB connection established'));
 
 const port = process.env.PORT || 3100;
 const server = app.listen(port, () => {

@@ -31,7 +31,8 @@ else
         useUnifiedTopology: true,
       }
     )
-    .then(() => console.log('DB connection established'));
+    .then(() => console.log('DB connection established'))
+    .catch((e) => console.log(e));
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

@@ -33,7 +33,7 @@ else
     )
     .then(() => console.log('DB connection established'));
 
-const port = process.env.PORT || 3100;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`App running on port ${port}...`);

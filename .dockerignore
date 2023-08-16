@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.git
+.parcel-cache
+.vscode
+dev-data
+.hintrc
+.prettierrc
+Dockerfile
+docker-compose.yaml
